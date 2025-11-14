@@ -18,6 +18,8 @@ function initializeApp() {
     const deselectAllBtn = document.getElementById('deselectAllBtn');
     const exportBtn = document.getElementById('exportBtn');
     const exportListBtn = document.getElementById('exportListBtn');
+    const helpToggle = document.getElementById('helpToggle');
+    const helpContent = document.getElementById('helpContent');
 
     fileSelectBtn.addEventListener('click', () => {
         psdFileInput.click();
@@ -28,6 +30,17 @@ function initializeApp() {
     deselectAllBtn.addEventListener('click', deselectAllLayers);
     exportBtn.addEventListener('click', startExport);
     exportListBtn.addEventListener('click', exportLayerListText);
+    
+    // 使い方トグル
+    helpToggle.addEventListener('click', () => {
+        if (helpContent.style.display === 'none') {
+            helpContent.style.display = 'block';
+            helpToggle.innerHTML = '<span class="icon">✖️</span><span>使い方を閉じる</span>';
+        } else {
+            helpContent.style.display = 'none';
+            helpToggle.innerHTML = '<span class="icon">❓</span><span>使い方を表示</span>';
+        }
+    });
 }
 
 // ファイル選択処理

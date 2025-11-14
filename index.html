@@ -6,6 +6,18 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PSD Exporter">
+    <meta name="description" content="PSDファイルのレイヤーを書き出すツール by Ambrose Starlit">
+    <meta name="theme-color" content="#6B4E3D">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- iOS Icons -->
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+    
     <title>PSD Layer Exporter</title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -32,6 +44,75 @@
                     <span>PSDファイルを選択</span>
                 </button>
                 <div id="fileNameDisplay" class="file-name-display"></div>
+            </div>
+
+            <!-- 使い方セクション -->
+            <div class="help-section">
+                <button class="help-toggle" id="helpToggle">
+                    <span class="icon">❓</span>
+                    <span>使い方を表示</span>
+                </button>
+                <div class="help-content" id="helpContent" style="display: none;">
+                    <h3>📱 ホーム画面にアイコンを追加</h3>
+                    <div class="help-item">
+                        <h4>iPhone (Safari)</h4>
+                        <ol>
+                            <li>画面下部の<strong>共有ボタン</strong>（□に↑）をタップ</li>
+                            <li>「<strong>ホーム画面に追加</strong>」を選択</li>
+                            <li>「追加」をタップして完了！</li>
+                        </ol>
+                    </div>
+                    <div class="help-item">
+                        <h4>iPhone (Chrome)</h4>
+                        <ol>
+                            <li>画面下部の<strong>共有ボタン</strong>をタップ</li>
+                            <li>「<strong>ホーム画面に追加</strong>」を選択</li>
+                            <li>「追加」をタップして完了！</li>
+                        </ol>
+                    </div>
+                    <div class="help-item">
+                        <h4>Android (Chrome)</h4>
+                        <ol>
+                            <li>画面右上の<strong>メニュー</strong>（︙）をタップ</li>
+                            <li>「<strong>ホーム画面に追加</strong>」を選択</li>
+                            <li>「追加」をタップして完了！</li>
+                        </ol>
+                    </div>
+
+                    <h3>🎨 使い方</h3>
+                    <div class="help-item">
+                        <h4>1. PSDファイルを選択</h4>
+                        <p>「PSDファイルを選択」ボタンをタップして、書き出したいPSDファイルを選びます。</p>
+                    </div>
+                    <div class="help-item">
+                        <h4>2. レイヤーを選択</h4>
+                        <p>書き出したいレイヤーにチェックを入れます。プレビューで確認できます。</p>
+                        <ul>
+                            <li><strong>すべて選択</strong>：全レイヤーを一括選択</li>
+                            <li><strong>選択解除</strong>：すべての選択を解除</li>
+                        </ul>
+                    </div>
+                    <div class="help-item">
+                        <h4>3. 書き出しモードを選択</h4>
+                        <ul>
+                            <li><strong>個別書き出し</strong>：各レイヤーを個別のPNG画像として書き出し（ZIPでダウンロード）</li>
+                            <li><strong>統合書き出し</strong>：選択したレイヤーを1枚の画像に統合して書き出し</li>
+                        </ul>
+                    </div>
+                    <div class="help-item">
+                        <h4>4. 書き出し開始</h4>
+                        <p>「書き出し開始」ボタンをタップすると、自動的にダウンロードが始まります。完了すると音が鳴ります🔔</p>
+                    </div>
+
+                    <h3>💡 便利な機能</h3>
+                    <div class="help-item">
+                        <ul>
+                            <li><strong>プレビュー表示</strong>：選択中のレイヤーをリアルタイムでプレビュー</li>
+                            <li><strong>レイヤー一覧テキスト保存</strong>：レイヤー構造をテキストファイルで保存</li>
+                            <li><strong>階層構造対応</strong>：フォルダとレイヤーを正しく認識</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <!-- レイヤーリストとプレビューエリア -->
