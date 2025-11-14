@@ -40,10 +40,6 @@ body {
 .header-icon {
     width: 80px;
     height: 80px;
-    border-radius: 50%;
-    background: white;
-    padding: 5px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .header-text {
