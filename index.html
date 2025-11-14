@@ -26,7 +26,7 @@
                 <div id="fileNameDisplay" class="file-name-display"></div>
             </div>
 
-            <!-- レイヤーリストエリア -->
+            <!-- レイヤーリストとプレビューエリア -->
             <div id="layerListArea" class="layer-list-area" style="display: none;">
                 <div class="section-header">
                     <h2>レイヤー一覧</h2>
@@ -35,7 +35,19 @@
                         <button id="deselectAllBtn" class="btn-small">選択解除</button>
                     </div>
                 </div>
-                <div id="layerList" class="layer-list"></div>
+                <div class="layer-content">
+                    <div id="layerList" class="layer-list"></div>
+                    <div id="previewArea" class="preview-area">
+                        <div class="preview-header">プレビュー</div>
+                        <div class="preview-container">
+                            <canvas id="previewCanvas"></canvas>
+                            <div id="previewInfo" class="preview-info"></div>
+                            <div id="previewPlaceholder" class="preview-placeholder">
+                                レイヤーを選択するとプレビューが表示されます
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- 書き出しエリア -->

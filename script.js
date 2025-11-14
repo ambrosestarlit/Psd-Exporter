@@ -144,6 +144,10 @@ function renderLayerList() {
 
             layerDiv.addEventListener('click', (e) => {
                 if (e.target !== checkbox) {
+                    // プレビュー表示
+                    showPreview(layerInfo);
+                    
+                    // チェックボックストグル
                     checkbox.checked = !checkbox.checked;
                     handleLayerCheckbox({ target: checkbox });
                 }
@@ -152,6 +156,31 @@ function renderLayerList() {
 
         layerList.appendChild(layerDiv);
     });
+}
+
+// プレビュー表示
+function showPreview(layerInfo) {
+    const previewCanvas = document.getElementById('previewCanvas');
+    const previewInfo = document.getElementById('previewInfo');
+    const previewPlaceholder = document.getElementById('previewPlaceholder');
+
+    // プレースホルダーを非表示
+    previewPlaceholder.style.display = 'none';
+
+    // レイヤーをキャンバスに描画
+    const canvas = renderLayerToCanvas(layerInfo.layer, true);
+    
+    // プレビューキャンバスに転送
+    previewCanvas.width = canvas.width;
+    previewCanvas.height = canvas.height;
+    const ctx = previewCanvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(canvas, 0, 0);
+
+    // 表示
+    previewCanvas.classList.add('show');
+    previewInfo.classList.add('show');
+    previewInfo.textContent = `${layerInfo.name} (${canvas.width}×${canvas.height}px)`;
 }
 
 // レイヤーチェックボックス処理
