@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -11,6 +12,14 @@ body {
     background: linear-gradient(135deg, #F5DEB3 0%, #E8C896 100%);
     min-height: 100vh;
     padding: 20px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+body * {
+    -webkit-user-select: text;
+    user-select: text;
 }
 
 .app-container {
@@ -319,6 +328,12 @@ body {
     align-items: center;
     gap: 8px;
     transition: all 0.3s;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.btn-primary:active, .btn-secondary:active {
+    transform: scale(0.95);
 }
 
 .btn-primary {
@@ -390,8 +405,21 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
     .app-container {
-        margin: 10px;
+        margin: 0;
+        border-radius: 12px;
+    }
+    
+    .header {
+        padding: 20px;
+    }
+    
+    .header-title {
+        gap: 15px;
     }
     
     .header-icon {
@@ -403,19 +431,48 @@ body {
         font-size: 1.5em;
     }
     
+    .subtitle {
+        font-size: 0.8em;
+    }
+    
+    .main-content {
+        padding: 20px;
+    }
+    
     .section-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
     }
     
+    .section-header h2 {
+        font-size: 1.3em;
+    }
+    
+    .header-buttons {
+        width: 100%;
+        justify-content: stretch;
+    }
+    
+    .btn-small {
+        flex: 1;
+    }
+    
     .layer-content {
         flex-direction: column;
     }
     
+    .layer-list {
+        max-height: 300px;
+    }
+    
     .preview-area {
         flex: 1;
-        max-height: 300px;
+        max-height: 400px;
+    }
+    
+    .export-mode {
+        padding: 15px;
     }
     
     .export-buttons {
@@ -424,5 +481,17 @@ body {
     
     .btn-primary, .btn-secondary {
         width: 100%;
+        justify-content: center;
+    }
+    
+    /* タッチ操作のための余白拡大 */
+    .layer-item {
+        padding: 15px 10px;
+        margin-bottom: 8px;
+    }
+    
+    .layer-item input[type="checkbox"] {
+        width: 22px;
+        height: 22px;
     }
 }
