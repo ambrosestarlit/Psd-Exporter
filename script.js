@@ -144,10 +144,6 @@ function renderLayerList() {
 
             layerDiv.addEventListener('click', (e) => {
                 if (e.target !== checkbox) {
-                    // プレビュー表示
-                    showPreview(layerInfo);
-                    
-                    // チェックボックストグル
                     checkbox.checked = !checkbox.checked;
                     handleLayerCheckbox({ target: checkbox });
                 }
@@ -156,31 +152,6 @@ function renderLayerList() {
 
         layerList.appendChild(layerDiv);
     });
-}
-
-// プレビュー表示
-function showPreview(layerInfo) {
-    const previewCanvas = document.getElementById('previewCanvas');
-    const previewInfo = document.getElementById('previewInfo');
-    const previewPlaceholder = document.getElementById('previewPlaceholder');
-
-    // プレースホルダーを非表示
-    previewPlaceholder.style.display = 'none';
-
-    // レイヤーをキャンバスに描画
-    const canvas = renderLayerToCanvas(layerInfo.layer, true);
-    
-    // プレビューキャンバスに転送
-    previewCanvas.width = canvas.width;
-    previewCanvas.height = canvas.height;
-    const ctx = previewCanvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(canvas, 0, 0);
-
-    // 表示
-    previewCanvas.classList.add('show');
-    previewInfo.classList.add('show');
-    previewInfo.textContent = `${layerInfo.name} (${canvas.width}×${canvas.height}px)`;
 }
 
 // レイヤーチェックボックス処理
@@ -197,6 +168,9 @@ function handleLayerCheckbox(event) {
     }
 
     document.getElementById('exportBtn').disabled = selectedLayers.size === 0;
+    
+    // プレビューを更新
+    updatePreview();
 }
 
 // すべて選択
@@ -207,12 +181,14 @@ function selectAllLayers() {
         }
     });
     updateLayerSelection();
+    updatePreview();
 }
 
 // 選択解除
 function deselectAllLayers() {
     selectedLayers.clear();
     updateLayerSelection();
+    updatePreview();
 }
 
 // レイヤー選択状態更新
@@ -231,6 +207,62 @@ function updateLayerSelection() {
     });
 
     document.getElementById('exportBtn').disabled = selectedLayers.size === 0;
+}
+
+// プレビュー更新
+function updatePreview() {
+    const previewCanvas = document.getElementById('previewCanvas');
+    const previewInfo = document.getElementById('previewInfo');
+    const previewPlaceholder = document.getElementById('previewPlaceholder');
+
+    if (selectedLayers.size === 0) {
+        // 選択なし - プレースホルダー表示
+        previewCanvas.classList.remove('show');
+        previewInfo.classList.remove('show');
+        previewPlaceholder.style.display = 'block';
+        return;
+    }
+
+    // プレースホルダーを非表示
+    previewPlaceholder.style.display = 'none';
+
+    // 選択されたレイヤーを番号順（下層から）にソート
+    const selectedIndices = Array.from(selectedLayers).sort((a, b) => {
+        return layers[b].number - layers[a].number;
+    });
+
+    // キャンバスを作成して統合
+    const canvas = document.createElement('canvas');
+    canvas.width = psdData.width;
+    canvas.height = psdData.height;
+    const ctx = canvas.getContext('2d');
+
+    // 各レイヤーを合成
+    selectedIndices.forEach(index => {
+        const layerInfo = layers[index];
+        const layer = layerInfo.layer;
+        
+        try {
+            const layerCanvas = renderLayerToCanvas(layer, false);
+            const x = layer.left || 0;
+            const y = layer.top || 0;
+            ctx.drawImage(layerCanvas, x, y);
+        } catch (error) {
+            console.error(`プレビュー描画エラー (${layerInfo.name}):`, error);
+        }
+    });
+
+    // プレビューキャンバスに転送
+    previewCanvas.width = canvas.width;
+    previewCanvas.height = canvas.height;
+    const previewCtx = previewCanvas.getContext('2d');
+    previewCtx.clearRect(0, 0, canvas.width, canvas.height);
+    previewCtx.drawImage(canvas, 0, 0);
+
+    // 表示
+    previewCanvas.classList.add('show');
+    previewInfo.classList.add('show');
+    previewInfo.textContent = `選択中: ${selectedLayers.size}レイヤー (${canvas.width}×${canvas.height}px)`;
 }
 
 // 書き出し開始
