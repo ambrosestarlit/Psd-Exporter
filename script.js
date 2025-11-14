@@ -275,12 +275,28 @@ async function startExport() {
         } else {
             await exportMerged();
         }
+        
+        // 完了サウンドを再生
+        playCompleteSound();
+        
         alert('書き出しが完了しました！');
     } catch (error) {
         console.error('書き出しエラー:', error);
         alert('書き出し中にエラーが発生しました: ' + error.message);
     } finally {
         hideProgress();
+    }
+}
+
+// 完了サウンド再生
+function playCompleteSound() {
+    const completeSound = document.getElementById('completeSound');
+    if (completeSound) {
+        completeSound.currentTime = 0;
+        completeSound.play().catch(error => {
+            console.log('サウンド再生エラー:', error);
+            // ブラウザのポリシーでブロックされる可能性があるが、エラーは無視
+        });
     }
 }
 
