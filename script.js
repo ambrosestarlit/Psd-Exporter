@@ -35,6 +35,13 @@ async function handleFileSelect(event) {
     const file = event.target.files[0];
     if (!file) return;
 
+    // ファイル名または拡張子をチェック
+    const fileName = file.name.toLowerCase();
+    if (!fileName.endsWith('.psd')) {
+        alert('PSDファイルを選択してください');
+        return;
+    }
+
     psdFile = file;
     document.getElementById('fileNameDisplay').textContent = `${file.name} (${formatFileSize(file.size)})`;
 
