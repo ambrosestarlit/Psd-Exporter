@@ -42,7 +42,9 @@ async function handleFileSelect(event) {
 
     try {
         const arrayBuffer = await file.arrayBuffer();
-        psdData = window.agPsd.readPsd(new Uint8Array(arrayBuffer));
+        
+        // ag-psdライブラリを使用
+        psdData = agPsd.readPsd(new Uint8Array(arrayBuffer));
         
         console.log('PSD読み込み完了:', psdData);
         
