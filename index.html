@@ -43,19 +43,21 @@
                         <button id="deselectAllBtn" class="btn-small">選択解除</button>
                     </div>
                 </div>
-                <div class="layer-content">
-                    <div id="layerList" class="layer-list"></div>
-                    <div id="previewArea" class="preview-area">
-                        <div class="preview-header">プレビュー</div>
-                        <div class="preview-container">
-                            <canvas id="previewCanvas"></canvas>
-                            <div id="previewInfo" class="preview-info"></div>
-                            <div id="previewPlaceholder" class="preview-placeholder">
-                                レイヤーを選択するとプレビューが表示されます
-                            </div>
+                
+                <!-- プレビューエリア -->
+                <div id="previewArea" class="preview-area-top">
+                    <div class="preview-header">プレビュー</div>
+                    <div class="preview-container">
+                        <canvas id="previewCanvas"></canvas>
+                        <div id="previewInfo" class="preview-info"></div>
+                        <div id="previewPlaceholder" class="preview-placeholder">
+                            レイヤーを選択するとプレビューが表示されます
                         </div>
                     </div>
                 </div>
+                
+                <!-- レイヤーリスト -->
+                <div id="layerList" class="layer-list"></div>
             </div>
 
             <!-- 書き出しエリア -->
