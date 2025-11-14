@@ -420,11 +420,16 @@ body * {
     
     .header-title {
         gap: 15px;
+        flex-direction: column;
     }
     
     .header-icon {
         width: 60px;
         height: 60px;
+    }
+    
+    .header-text {
+        text-align: center;
     }
     
     .header h1 {
