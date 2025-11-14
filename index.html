@@ -3,94 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PSD Layer Exporter - Ambrose Starlit</title>
+    <title>PSD Layer Exporter</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🎨 PSD Layer Exporter</h1>
+    <div class="app-container">
+        <!-- ヘッダー -->
+        <div class="header">
+            <h1>PSD Layer Exporter</h1>
             <p class="subtitle">by Ambrose Starlit</p>
-        </header>
+        </div>
 
-        <main>
-            <!-- ファイル選択エリア -->
-            <section class="upload-section">
-                <div class="upload-area" id="uploadArea">
-                    <div class="upload-icon">📁</div>
-                    <p class="upload-text">PSDファイルをドロップ or クリックして選択</p>
-                    <input type="file" id="fileInput" accept=".psd" hidden>
-                </div>
-                <div class="file-info" id="fileInfo" style="display: none;">
-                    <span id="fileName"></span>
-                    <span id="fileSize"></span>
-                </div>
-            </section>
+        <!-- メインコンテンツ -->
+        <div class="main-content">
+            <!-- ファイル選択 -->
+            <div class="file-select-area">
+                <input type="file" id="psdFileInput" accept=".psd" style="display: none;">
+                <button class="file-select-btn" id="fileSelectBtn">
+                    <span class="icon">📁</span>
+                    <span>PSDファイルを選択</span>
+                </button>
+                <div id="fileNameDisplay" class="file-name-display"></div>
+            </div>
 
-            <!-- レイヤー一覧エリア -->
-            <section class="layers-section" id="layersSection" style="display: none;">
+            <!-- レイヤーリストエリア -->
+            <div id="layerListArea" class="layer-list-area" style="display: none;">
                 <div class="section-header">
-                    <h2>📋 レイヤー一覧</h2>
-                    <div class="action-buttons">
-                        <button class="btn btn-secondary" id="selectAllBtn">すべて選択</button>
-                        <button class="btn btn-secondary" id="deselectAllBtn">選択解除</button>
+                    <h2>レイヤー一覧</h2>
+                    <div class="header-buttons">
+                        <button id="selectAllBtn" class="btn-small">すべて選択</button>
+                        <button id="deselectAllBtn" class="btn-small">選択解除</button>
                     </div>
                 </div>
-                <div class="layers-container" id="layersContainer"></div>
-            </section>
+                <div id="layerList" class="layer-list"></div>
+            </div>
 
-            <!-- エクスポートコントロール -->
-            <section class="export-section" id="exportSection" style="display: none;">
-                <div class="export-options">
-                    <h3>📤 書き出しオプション</h3>
-                    <div class="option-group">
-                        <label>
-                            <input type="radio" name="exportMode" value="individual" checked>
-                            <span>選択レイヤーを個別に書き出し</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="exportMode" value="merged">
-                            <span>選択レイヤーを統合して書き出し</span>
-                        </label>
-                    </div>
-                    <div class="button-group">
-                        <button class="btn btn-primary" id="exportBtn" disabled>
-                            <span class="btn-icon">✨</span>
-                            書き出し開始
-                        </button>
-                        <button class="btn btn-secondary" id="exportListBtn">
-                            <span class="btn-icon">📄</span>
-                            レイヤー一覧をテキストで保存
-                        </button>
-                    </div>
+            <!-- 書き出しエリア -->
+            <div id="exportArea" class="export-area" style="display: none;">
+                <div class="export-mode">
+                    <label class="radio-label">
+                        <input type="radio" name="exportMode" value="individual" checked>
+                        <span>個別書き出し（各レイヤーを個別ファイルに）</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="exportMode" value="merged">
+                        <span>統合書き出し（選択レイヤーを1枚に統合）</span>
+                    </label>
                 </div>
-            </section>
+                <div class="export-buttons">
+                    <button id="exportBtn" class="btn-primary" disabled>
+                        <span class="icon">✨</span>
+                        <span>書き出し開始</span>
+                    </button>
+                    <button id="exportListBtn" class="btn-secondary">
+                        <span class="icon">📄</span>
+                        <span>レイヤー一覧テキスト保存</span>
+                    </button>
+                </div>
+            </div>
 
             <!-- プログレス表示 -->
-            <section class="progress-section" id="progressSection" style="display: none;">
-                <div class="progress-container">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
-                    <p class="progress-text" id="progressText">処理中...</p>
+            <div id="progressArea" class="progress-area" style="display: none;">
+                <div class="progress-bar-container">
+                    <div id="progressBar" class="progress-bar"></div>
                 </div>
-            </section>
+                <div id="progressText" class="progress-text"></div>
+            </div>
+        </div>
 
-            <!-- 結果表示 -->
-            <section class="result-section" id="resultSection" style="display: none;">
-                <h3>✅ 書き出し完了</h3>
-                <div id="resultList"></div>
-                <audio id="completeSound" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=" preload="auto"></audio>
-            </section>
-        </main>
-
-        <footer>
-            <p>© 2025 Ambrose Starlit - PSD Layer Exporter</p>
-        </footer>
+        <!-- フッター -->
+        <div class="footer">
+            <p>© 2025 Ambrose Starlit</p>
+        </div>
     </div>
 
-    <!-- JSライブラリ -->
-    <script src="https://cdn.jsdelivr.net/npm/@webtoon/psd@latest/dist/psd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ag-psd@14/dist/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jszip@3/dist/jszip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/file-saver@2/dist/FileSaver.min.js"></script>
     <script src="script.js"></script>
